@@ -1,1 +1,164 @@
-<p>reservaciones works!</p>
+<div class="usuarios-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-icon">
+        <!-- icono reservación -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M8 2v4"/>
+          <path d="M16 2v4"/>
+          <path d="M3 10h18"/>
+        </svg>
+      </div>
+
+      <div>
+        <h2 class="page-title">Reservaciones</h2>
+        <p class="page-subtitle">Administración de reservaciones</p>
+      </div>
+    </div>
+
+    <button class="btn-registrar" (click)="toggleForm()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Registrar Reservación
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <table class="hotel-table">
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Huésped</th>
+          <th>Habitación</th>
+          <th>Fecha Entrada</th>
+          <th>Fecha Salida</th>
+          <th>Estado</th>
+          <th style="width:220px">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let reservacion of reservaciones; let i = index">
+
+          <td class="td-num">{{ i + 1 }}</td>
+
+          <!-- Huésped -->
+          <td>
+            <div class="user-chip">
+              <div class="user-avatar">
+                {{ reservacion.huesped.charAt(0) }}
+              </div>
+              <span>
+                {{ reservacion.huesped }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Habitación -->
+          <td>{{ reservacion.habitacion }}</td>
+
+          <!-- Fechas -->
+          <td>{{ reservacion.fechaEntrada | date }}</td>
+
+          <td>{{ reservacion.fechaSalida | date }}</td>
+
+          <!-- Estado -->
+          <td>{{ reservacion.idEstadoReservacion }}</td>
+
+          <td class="td-actions">
+
+            <button class="btn-action edit" (click)="editarReservacion(reservacion)">
+              Editar
+            </button>
+
+            <button class="btn-action delete" (click)="deleteReservacion(reservacion.id)">
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="reservaciones.length === 0">
+          <td colspan="7" class="empty-state">
+            No hay reservaciones registradas
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" #reservacionModalRef tabindex="-1">
+
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content hotel-modal">
+
+      <div class="modal-header hotel-modal-header">
+        <h5 class="modal-title">{{ textoModal }}</h5>
+        <button type="button" class="hotel-modal-close" data-bs-dismiss="modal">✕</button>
+      </div>
+
+      <div class="modal-body hotel-modal-body">
+
+        <form [formGroup]="reservacionForm" (ngSubmit)="onSubmit()">
+
+          <!-- ID Huésped -->
+          <div class="hotel-field">
+            <label class="hotel-label">ID Huésped</label>
+            <input class="hotel-input" type="number" formControlName="idHuesped">
+          </div>
+
+          <!-- ID Habitación -->
+          <div class="hotel-field">
+            <label class="hotel-label">ID Habitación</label>
+            <input class="hotel-input" type="number" formControlName="idHabitacion">
+          </div>
+
+          <!-- Fecha Entrada -->
+          <div class="hotel-field">
+            <label class="hotel-label">Fecha Entrada</label>
+            <input class="hotel-input" type="date" formControlName="fechaEntrada">
+          </div>
+
+          <!-- Fecha Salida -->
+          <div class="hotel-field">
+            <label class="hotel-label">Fecha Salida</label>
+            <input class="hotel-input" type="date" formControlName="fechaSalida">
+          </div>
+
+          <!-- Actions -->
+          <div class="modal-footer-actions">
+
+            <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+
+            <button type="submit" class="btn-modal-save" [disabled]="reservacionForm.invalid">
+              Guardar
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div><p>reservaciones works!</p>

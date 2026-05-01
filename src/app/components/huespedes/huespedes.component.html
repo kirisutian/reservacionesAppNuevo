@@ -1,1 +1,187 @@
-<p>huespedes works!</p>
+<div class="usuarios-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-icon">
+        <!-- icono huésped -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>
+        </svg>
+      </div>
+
+      <div>
+        <h2 class="page-title">Huéspedes</h2>
+        <p class="page-subtitle">Administración de huéspedes</p>
+      </div>
+    </div>
+
+    <button class="btn-registrar" (click)="toggleForm()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Registrar Huésped
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <table class="hotel-table">
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Documento</th>
+          <th>Nacionalidad</th>
+          <th style="width:220px">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let huesped of huespedes; let i = index">
+
+          <td class="td-num">{{ i + 1 }}</td>
+
+          <!-- Nombre completo -->
+          <td>
+            <div class="user-chip">
+              <div class="user-avatar">
+                {{ huesped.nombre.charAt(0) }}
+              </div>
+              <span>
+                {{ huesped.nombre }}
+                {{ huesped.apellidoPaterno }}
+                {{ huesped.apellidoMaterno }}
+              </span>
+            </div>
+          </td>
+
+          <td>{{ huesped.email }}</td>
+
+          <td>{{ huesped.telefono }}</td>
+
+          <td>
+            {{ huesped.tipoDocumento }} - {{ huesped.documento }}
+          </td>
+
+          <td>{{ huesped.nacionalidad }}</td>
+
+          <td class="td-actions">
+
+            <button class="btn-action edit" (click)="editarHuesped(huesped)">
+              Editar
+            </button>
+
+            <button class="btn-action delete" (click)="deleteHuesped(huesped.id)">
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="huespedes.length === 0">
+          <td colspan="7" class="empty-state">
+            No hay huéspedes registrados
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" #huespedModalRef tabindex="-1">
+
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content hotel-modal">
+
+      <div class="modal-header hotel-modal-header">
+        <h5 class="modal-title">{{ textoModal }}</h5>
+        <button type="button" class="hotel-modal-close" data-bs-dismiss="modal">✕</button>
+      </div>
+
+      <div class="modal-body hotel-modal-body">
+
+        <form [formGroup]="huespedForm" (ngSubmit)="onSubmit()">
+
+          <!-- Nombre -->
+          <div class="hotel-field">
+            <label class="hotel-label">Nombre</label>
+            <input class="hotel-input" type="text" formControlName="nombre">
+          </div>
+
+          <!-- Apellido Paterno -->
+          <div class="hotel-field">
+            <label class="hotel-label">Apellido Paterno</label>
+            <input class="hotel-input" type="text" formControlName="apellidoPaterno">
+          </div>
+
+          <!-- Apellido Materno -->
+          <div class="hotel-field">
+            <label class="hotel-label">Apellido Materno</label>
+            <input class="hotel-input" type="text" formControlName="apellidoMaterno">
+          </div>
+
+          <!-- Email -->
+          <div class="hotel-field">
+            <label class="hotel-label">Email</label>
+            <input class="hotel-input" type="email" formControlName="email">
+          </div>
+
+          <!-- Teléfono -->
+          <div class="hotel-field">
+            <label class="hotel-label">Teléfono</label>
+            <input class="hotel-input" type="text" formControlName="telefono">
+          </div>
+
+          <!-- Documento -->
+          <div class="hotel-field">
+            <label class="hotel-label">Documento</label>
+            <input class="hotel-input" type="text" formControlName="documento">
+          </div>
+
+          <!-- Tipo Documento -->
+          <div class="hotel-field">
+            <label class="hotel-label">Tipo Documento</label>
+            <input class="hotel-input" type="text" formControlName="tipoDocumento">
+          </div>
+
+          <!-- Nacionalidad -->
+          <div class="hotel-field">
+            <label class="hotel-label">Nacionalidad</label>
+            <input class="hotel-input" type="text" formControlName="nacionalidad">
+          </div>
+
+          <!-- Actions -->
+          <div class="modal-footer-actions">
+
+            <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+
+            <button type="submit" class="btn-modal-save" [disabled]="huespedForm.invalid">
+              Guardar
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
