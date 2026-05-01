@@ -1,1 +1,155 @@
-<p>habitaciones works!</p>
+<div class="usuarios-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-icon">
+        <!-- icono habitación -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10h18v10H3z"/>
+          <path d="M7 10V7a5 5 0 0 1 10 0v3"/>
+        </svg>
+      </div>
+      <div>
+        <h2 class="page-title">Habitaciones</h2>
+        <p class="page-subtitle">Administración de habitaciones</p>
+      </div>
+    </div>
+
+    <button class="btn-registrar" (click)="toggleForm()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Registrar Habitación
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <table class="hotel-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Capacidad</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th style="width:220px">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let habitacion of habitaciones; let i = index">
+          <td class="td-num">{{ i + 1 }}</td>
+
+          <td>
+            <div class="user-chip">
+              <div class="user-avatar">{{ habitacion.numero }}</div>
+              <span>Hab. {{ habitacion.numero }}</span>
+            </div>
+          </td>
+
+          <td>
+            <span class="role-badge">
+              {{ transformarTipo(habitacion.tipoHabitacion) }}
+            </span>
+          </td>
+
+          <td>{{ habitacion.capacidad }} personas</td>
+
+          <td>${{ habitacion.precio }}</td>
+
+          <td>
+            <span class="role-badge">
+              {{ transformarEstado(habitacion.estadoHabitacion) }}
+            </span>
+          </td>
+
+          <td class="td-actions">
+            <button class="btn-action edit" (click)="editarHabitacion(habitacion)">
+              Editar
+            </button>
+
+            <button class="btn-action delete" (click)="deleteHabitacion(habitacion.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <!-- empty -->
+        <tr *ngIf="habitaciones.length === 0">
+          <td colspan="7" class="empty-state">
+            <span>No hay habitaciones registradas</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" #habitacionModalRef tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content hotel-modal">
+
+      <div class="modal-header hotel-modal-header">
+        <h5 class="modal-title">{{ textoModal }}</h5>
+        <button type="button" class="hotel-modal-close" data-bs-dismiss="modal">✕</button>
+      </div>
+
+      <div class="modal-body hotel-modal-body">
+        <form [formGroup]="habitacionForm" (ngSubmit)="onSubmit()">
+
+          <!-- NUMERO -->
+          <div class="hotel-field">
+            <label class="hotel-label">Número</label>
+            <input class="hotel-input" formControlName="numero" type="number">
+          </div>
+
+          <!-- TIPO -->
+          <div class="hotel-field">
+            <label class="hotel-label">Tipo</label>
+            <select class="hotel-select" formControlName="tipoHabitacion">
+              <option *ngFor="let t of tipos" [value]="t">
+                {{ transformarTipo(t) }}
+              </option>
+            </select>
+          </div>
+
+          <!-- CAPACIDAD -->
+          <div class="hotel-field">
+            <label class="hotel-label">Capacidad</label>
+            <input class="hotel-input" formControlName="capacidad" type="number">
+          </div>
+
+          <!-- PRECIO -->
+          <div class="hotel-field">
+            <label class="hotel-label">Precio</label>
+            <input class="hotel-input" formControlName="precio" type="number">
+          </div>
+
+          <!-- ESTADO -->
+          <div class="hotel-field">
+            <label class="hotel-label">Estado</label>
+            <select class="hotel-select" formControlName="estadoHabitacion">
+              <option *ngFor="let e of estados" [value]="e">
+                {{ transformarEstado(e) }}
+              </option>
+            </select>
+          </div>
+
+          <div class="modal-footer-actions">
+            <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn-modal-save" [disabled]="habitacionForm.invalid">
+              Guardar
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap');
+
+:host {
+  --bg-dark:    #0f1117;
+  --bg-card:    #161b27;
+  --bg-input:   #1e2535;
+  --bg-hover:   #1a2030;
+  --border:     #2e3a52;
+  --gold:       #c9a96e;
+  --gold-light: #e0c898;
+  --text:       #c8d0de;
+  --text-muted: #5a6a82;
+  --error:      #e07070;
+  --edit-color: #6ea8c9;
+  --del-color:  #e07070;
+}
+
+/* ── Contenedor ──────────────────────────────── */
+.usuarios-container {
+  padding: 2rem 2.5rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ── Page Header ─────────────────────────────── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(201,169,110,0.08);
+  border: 1px solid rgba(201,169,110,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.page-subtitle {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.btn-registrar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.3rem;
+  background: linear-gradient(135deg, #c9a96e, #a07840);
+  border: none;
+  border-radius: 7px;
+  color: #1a1200;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(201,169,110,0.2);
+}
+
+.btn-registrar:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(201,169,110,0.3);
+}
+
+/* ── Tabla ───────────────────────────────────── */
+.table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.hotel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hotel-table thead tr {
+  background: #0f1117;
+  border-bottom: 1px solid var(--border);
+}
+
+.hotel-table thead th {
+  padding: 1rem 1.25rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: left;
+}
+
+.hotel-table tbody tr {
+  border-bottom: 1px solid rgba(46,58,82,0.5);
+  transition: background 0.15s;
+}
+
+.hotel-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.hotel-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.hotel-table td {
+  padding: 0.9rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.td-num {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+/* Chip de huésped */
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #a07840);
+  color: #1a1200;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Badges */
+.role-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.25);
+  color: var(--gold);
+  margin-right: 0.35rem;
+}
+
+/* Botones de acción */
+.td-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-action.edit {
+  background: rgba(110,168,201,0.08);
+  border-color: rgba(110,168,201,0.2);
+  color: var(--edit-color);
+}
+
+.btn-action.edit:hover {
+  background: rgba(110,168,201,0.15);
+  border-color: rgba(110,168,201,0.4);
+}
+
+.btn-action.delete {
+  background: rgba(224,112,112,0.08);
+  border-color: rgba(224,112,112,0.2);
+  color: var(--del-color);
+}
+
+.btn-action.delete:hover {
+  background: rgba(224,112,112,0.15);
+  border-color: rgba(224,112,112,0.4);
+}
+
+/* Empty */
+.empty-state {
+  text-align: center;
+  padding: 3rem !important;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+/* ── Modal ──────────────────────────── */
+.hotel-modal {
+  background: #161b27;
+  border: 1px solid #2e3a52;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+.hotel-modal::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+}
+
+.hotel-modal-header {
+  background: #0f1117;
+  border-bottom: 1px solid #2e3a52;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hotel-modal-header .modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #e0c898;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.hotel-modal-close {
+  background: none;
+  border: 1px solid #2e3a52;
+  border-radius: 6px;
+  color: #5a6a82;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hotel-modal-close:hover {
+  border-color: #e07070;
+  color: #e07070;
+}
+
+.hotel-modal-body {
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+
+/* Campos */
+.hotel-field {
+  margin-bottom: 1.3rem;
+}
+
+.hotel-label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5a6a82;
+  margin-bottom: 0.45rem;
+  font-weight: 500;
+}
+
+.hotel-input,
+.hotel-select {
+  width: 100%;
+  background: #1e2535;
+  border: 1px solid #2e3a52;
+  border-radius: 7px;
+  color: #c8d0de;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.hotel-input:focus,
+.hotel-select:focus {
+  border-color: #c9a96e;
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+}
+
+/* Botones modal */
+.modal-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #2e3a52;
+}
+
+.btn-modal-cancel {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 1px solid #2e3a52;
+  border-radius: 7px;
+  color: #5a6a82;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn-modal-save {
+  padding: 0.6rem 1.4rem;
+  background: linear-gradient(135deg, #c9a96e, #a07840);
+  border: none;
+  border-radius: 7px;
+  color: #1a1200;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+}
